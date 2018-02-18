@@ -1,0 +1,100 @@
+swagger: "2.0"
+info:
+  description: "SnowBird Agile Users API documentation. Users API exposes set of APIs to deal with SnowBird User resources"
+  version: "1.0.0"
+  title: "SnowBird Agile Users API "
+  contact:
+    email: "snowbirdjarvis@outlook.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "6n1n3bhic6.execute-api.us-east-1.amazonaws.com"
+basePath: "/dev"
+
+schemes:
+- "https"
+paths:
+  /users/{userId}:
+    get:
+      tags:
+      - "users"
+      summary: "Get user by user id"
+      description: ""
+      operationId: "getUserById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "Unique id of the user which details need to be fetched"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        404:
+          description: "User not found for given id"
+        500:
+          description: "Request failed due to server error"
+    put:
+      tags:
+      - "users"
+      summary: "Updated user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "Unique id of the user which details need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "User object with modified and existing values"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        204:
+          description: "successfully updated"
+        400:
+          description: "Invalid user details supplied"
+        404:
+          description: "User not found for given id"
+        500:
+          description: "Request failed due to server error"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      profilePicture:
+        type: "string"
+        description: "Profile picure url"
+      designation:
+        type: "string"
+    xml:
+      name: "User"
