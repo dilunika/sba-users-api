@@ -8,8 +8,8 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "6n1n3bhic6.execute-api.us-east-1.amazonaws.com"
-basePath: "/dev"
+host: "dev-api.snowbirdagile.com"
+basePath: "/"
 
 schemes:
 - "https"
@@ -67,18 +67,6 @@ paths:
           description: "User not found for given id"
         500:
           description: "Request failed due to server error"
-securityDefinitions:
-  petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
-  api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
 definitions:
   User:
     type: "object"

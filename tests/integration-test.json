@@ -1,0 +1,206 @@
+{
+	"info": {
+		"name": "Snowbird",
+		"_postman_id": "4934e906-1919-295e-452c-01ad92e9698a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User API",
+			"description": "",
+			"item": [
+				{
+					"name": "Hello",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63723615-7bec-48ec-bdec-125d8b4691c0",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Health Check', () => {",
+									"    ",
+									"    it('should return 200 status code', () => {",
+									"        pm.response.to.have.status(200);",
+									"    });",
+									"    ",
+									"    it('should say Hello Wrold', () => {",
+									"        pm.response.to.have.body(\"Users API is up and running!!!\");",
+									"    });",
+									"});",
+									"",
+									"    "
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{USER_ENDPOINT}}/users/ping",
+							"host": [
+								"{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"users",
+								"ping"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beeba656-50c9-40e5-bab9-499d7408af29",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Update User', () => {",
+									"    ",
+									"    it('should return 204 status code', () => {",
+									"        pm.response.to.have.status(204);",
+									"    });",
+									"    ",
+									"    it('should not have content in body', () => {",
+									"        pm.response.to.have.body('');",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"kasundilunika@gmail.com\", \n\t\"firstName\":\"Kasun\", \n\t\"lastName\":\"Jayasuriyage\", \n\t\"profilePicture\":\"http://lorempixel.com/100/100/\", \n\t\"designation\":\"Developer\"\n}"
+						},
+						"url": {
+							"raw": "{{USER_ENDPOINT}}/users/f41918ef-c457-47e5-9da2-75734df3a65d",
+							"host": [
+								"{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"users",
+								"f41918ef-c457-47e5-9da2-75734df3a65d"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6ebc2351-62bc-4555-ab0b-a782ccd8c79c",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Get user details', () => {",
+									"    ",
+									"    it('should return 200 status code', () => {",
+									"        pm.response.to.have.status(200);",
+									"    });",
+									"    ",
+									"    it('should contain mandatory attributes', () => {",
+									"        const user = response.body;",
+									"        user.id.should.not.be.empty;",
+									"        user.email.should.not.be.empty;",
+									"        user.firstName.should.not.be.empty;",
+									"        user.lastName.should.not.be.empty;",
+									"        user.status.should.not.be.empty;",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": \"0a0bdecb-a6bb-4966-98f2-23e74a74f54c\" ,\n\t\"email\": \"kasundilunika@gmail.com\", \n\t\"firstName\":\"Kasun\", \n\t\"lastName\":\"Jayasuriyage\", \n\t\"profilePicture\":\"http://lorempixel.com/100/100/\", \n\t\"designation\":\"Developer\"\n}"
+						},
+						"url": {
+							"raw": "{{USER_ENDPOINT}}/users/f41918ef-c457-47e5-9da2-75734df3a65d",
+							"host": [
+								"{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"users",
+								"f41918ef-c457-47e5-9da2-75734df3a65d"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Install Postman BDD",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0fcc88ad-9e8e-4c61-824d-1a77e9df1ae2",
+						"type": "text/javascript",
+						"exec": [
+							"// \"install\" Postman BDD",
+							"// postman.setGlobalVariable('postmanBDD', responseBody);",
+							"",
+							"pm.globals.set(\"postmanBDD\", responseBody);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://bigstickcarpet.com/postman-bdd/dist/postman-bdd.min.js",
+					"protocol": "http",
+					"host": [
+						"bigstickcarpet",
+						"com"
+					],
+					"path": [
+						"postman-bdd",
+						"dist",
+						"postman-bdd.min.js"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
