@@ -7,6 +7,7 @@ const User = require('../../models/user');
 const ErrorResponseBody = require('../../models/errorResponseBody');
 const mock = require('./mockEndpoint');
 const aws = require('./awsEndpoint');
+const sendCorsResponse = require('../../utils/sendCorsResponse');
 
 
 module.exports = (req, res) => {
@@ -16,12 +17,12 @@ module.exports = (req, res) => {
     const user = new User(userId, email, firstName, lastName, profilePicture, designation);
 
     update(user)
-        .then(r => res.status(204).json(r.body))
+        .then(r => sendCorsResponse(res, 204, {}))
         .catch(err => {
             const message = 'Failed to update the user attributes. ';
             console.error(message, err);
             const errResponse = new ErrorResponseBody('FAILED_USER_UPDATE', message);
-            res.status(500).json(errResponse);
+            sendCorsResponse(res, 204, errResponse);
         });
 
 };
