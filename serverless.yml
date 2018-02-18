@@ -4,7 +4,7 @@ provider:
   name: aws
   profile: sba-dm
   runtime: nodejs6.10
-  stage: ${opt:stage, 'dev'}
+  stage: dev
   region: us-east-1
   iamRoleStatements:
       - Effect: "Allow"
@@ -21,7 +21,17 @@ functions:
       - http: ANY /
       - http: 'ANY {proxy+}'
 
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    dev: dev-api.snowbirdagile.com
 
+  customDomain:
+    basePath: "users"
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    stage: "${self:custom.stage}"
+    createRoute53Record: true
 
 plugins:
   - serverless-offline
+  - serverless-domain-manager

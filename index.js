@@ -12,8 +12,8 @@ const getUserProfile = require('./operations/getUserProfile/index');
 
 app.use(bodyParser.json({ strict: false }));
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
+app.get('/users/ping', function (req, res) {
+    res.send('Users API is up and running!!!')
 });
 
 app.get('/users/:userId', getUserProfile);
