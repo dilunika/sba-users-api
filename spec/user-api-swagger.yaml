@@ -14,10 +14,37 @@ basePath: "/"
 schemes:
 - "https"
 paths:
+  /users:
+    get:
+      tags:
+        - user
+      summary: Search Users
+      description: Search users by attributes
+      operationId: searchUser
+      produces:
+        - application/json
+      parameters:
+        - name: firstName
+          in: query
+          description: First name key for user search
+          required: true
+          type: string
+      responses:
+        200:
+          description: "List of users"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        404:
+          description: "User not found for given first name"
+        500:
+          description: "Request failed due to server error"
+
   /users/{userId}:
     get:
       tags:
-      - "users"
+      - "user"
       summary: "Get user by user id"
       description: ""
       operationId: "getUserById"
@@ -40,7 +67,7 @@ paths:
           description: "Request failed due to server error"
     put:
       tags:
-      - "users"
+      - "user"
       summary: "Updated user"
       description: "This can only be done by the logged in user."
       operationId: "updateUser"
