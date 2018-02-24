@@ -3,11 +3,11 @@
  */
 
 const conf = require('../../config');
-const User = require('../../models/user');
 const ErrorResponseBody = require('../../models/errorResponseBody');
 const mock = require('./mockEndpoint');
 const aws = require('./awsEndpoint');
 const sendCorsResponse = require('../../utils/sendCorsResponse');
+const mapper = require('../../models/mappers');
 
 
 module.exports = (req, res) => {
@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     const userId = req.params.userId;
 
     findUserByName(userId)
-        .then(profile => mapAttributesToUser(profile))
+        .then(profile => mapper.mapAttributesToUser(profile))
         .then(user => sendCorsResponse(res, 200, user))
         .catch(err => {
             const message = 'Failed to fetch the user details. ';
@@ -40,26 +40,4 @@ function findUserByName(userId) {
 
     return apiInvocation(params);
 
-}
-
-function mapAttributesToUser(profile) {
-
-    const user = new User(profile.Username);
-    user.userCreateDate = profile.UserCreateDate;
-    user.userLastModifiedDate = profile.UserLastModifiedDate;
-    user.status = profile.UserStatus;
-    user.firstName = getValueOfAttribute(profile, 'given_name');
-    user.lastName = getValueOfAttribute(profile, 'family_name');
-    user.email = getValueOfAttribute(profile, 'email');
-    user.profilePicture = getValueOfAttribute(profile, 'custom:profilePictureUrl');
-    user.designation = getValueOfAttribute(profile, 'custom:designation');
-
-    return user;
-}
-
-function getValueOfAttribute(profile, attributeName) {
-
-    const attr = profile.UserAttributes.find(a => a.Name === attributeName);
-
-    return attr ? attr.Value : undefined;
 }

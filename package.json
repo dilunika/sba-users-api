@@ -9,10 +9,12 @@
     "amazon-cognito-identity-js": "^1.31.0",
     "aws-sdk": "^2.184.0",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "serverless-domain-manager": "^2.3.0",
     "serverless-http": "^1.5.2",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "serverless-offline": "^3.16.0",

@@ -9,20 +9,17 @@ module.exports = (params) => {
     return new Promise((resolve) => {
 
         const data = {
-            body: {
-                Username: params.Username,
-                UserCreateDate: new Date(),
-                UserLastModifiedDate: new Date(),
-                UserStatus: 'CONFIRMED',
-                UserAttributes: [
-                    {Name: 'given_name', Value: 'John'},
-                    {Name: 'family_name', Value: 'Doe'},
-                    {Name: 'email', Value: 'john@y.com'},
-                    {Name: 'profilePictureUrl', Value: 'http://lorempixel.com/100/100/'},
-                    {Name: 'designation', Value: 'Scrum Master'},
-                ]
-
-            }
+            Username: params.Username,
+            UserCreateDate: new Date(),
+            UserLastModifiedDate: new Date(),
+            UserStatus: 'CONFIRMED',
+            UserAttributes: [
+                {Name: 'given_name', Value: 'John'},
+                {Name: 'family_name', Value: 'Doe'},
+                {Name: 'email', Value: 'john@y.com'},
+                {Name: 'profilePictureUrl', Value: 'http://lorempixel.com/100/100/'},
+                {Name: 'designation', Value: 'Scrum Master'},
+            ]
         };
         setTimeout(() => resolve(data), 300);
     });
