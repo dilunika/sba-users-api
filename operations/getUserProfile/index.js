@@ -6,7 +6,6 @@ const conf = require('../../config');
 const ErrorResponseBody = require('../../models/errorResponseBody');
 const mock = require('./mockEndpoint');
 const aws = require('./awsEndpoint');
-const sendCorsResponse = require('../../utils/sendCorsResponse');
 const mapper = require('../../models/mappers');
 
 
@@ -16,12 +15,12 @@ module.exports = (req, res) => {
 
     findUserByName(userId)
         .then(profile => mapper.mapAttributesToUser(profile))
-        .then(user => sendCorsResponse(res, 200, user))
+        .then(user => res.status(200).json(user))
         .catch(err => {
             const message = 'Failed to fetch the user details. ';
             console.error(message, err);
             const errResponse = new ErrorResponseBody('FAILED_USER_FETCH', message);
-            sendCorsResponse(res, 500, errResponse);
+            res.status(500).json(errResponse);
         });
 
 };
